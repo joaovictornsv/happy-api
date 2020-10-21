@@ -1,13 +1,14 @@
-module.exports = {
-  type: 'postgres',
-  host: process.env.TYPEORM_HOST,
-  port: process.env.TYPEORM_PORT,
-  username: process.env.TYPEORM_USERNAME,
-  password: process.env.TYPEORM_PASSWORD,
-  database: process.env.TYPEORM_DATABASE,
-  entities: [process.env.TYPEORM_ENTITIES],
-  migrations: [process.env.TYPEORM_MIGRATIONS],
-  cli: {
-    migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
+import Image from "../models/Image";
+
+export default {
+  render(image: Image) {
+    return {
+      id: image.id,
+      url: `${process.env.API_URL}/uploads/${image.path}`
+    };
   },
-}
+
+  renderMany(images: Image[]) {
+    return images.map(image => this.render(image));
+  }
+};
